@@ -4,7 +4,7 @@ class App extends React.Component<IAppProps, IAppState> {
 	constructor(props: IAppProps) {
 		super(props);
 		this.state = {
-			skills: [] // Skills is initialised as an empty array we'll fill with a list of DB elements.
+			skills: [] // Skills is initialised as an empty array we'll fill with a list of DB elements. Note that we've declared is as part of our IAppState interface below.
 		};
 	}
 
@@ -35,7 +35,7 @@ class App extends React.Component<IAppProps, IAppState> {
 export interface IAppProps {}
 
 export interface IAppState {
-	skills: Array<any>; // Could put everything that comes back from the table here. Props on our table.
+	skills: Array<any>; // Could put everything that comes back from the table here. Props on our table. Currently implicitly assuming we have what we need when we go to unpack it.
 }
 
 export default App;
