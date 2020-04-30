@@ -4,15 +4,15 @@ class App extends React.Component<IAppProps, IAppState> {
 	constructor(props: IAppProps) {
 		super(props);
 		this.state = {
-			name: null
+			skills: [] // Skills is initialised as an empty array we'll fill with a list of DB elements.
 		};
 	}
 
 	async componentDidMount() {
 		try {
-			let r = await fetch('/api/hello');
-			let name = await r.json();
-			this.setState({ name });
+			let r = await fetch('/api/skills'); // Aysnc call to our local server.
+			let skills = await r.json(); // unpack the json response to the skills var.
+			this.setState({ skills });
 		} catch (error) {
 			console.log(error);
 		}
@@ -21,7 +21,12 @@ class App extends React.Component<IAppProps, IAppState> {
 	render() {
 		return (
 			<main className="container my-5">
-				<h1 className="text-primary text-center">Hello {this.state.name}!</h1>
+				<h1 className="text-primary text-center">My Applet</h1>
+				<ul className="list-group">
+					{this.state.skills.map((skill, i) => { // map every element of the returned skills object to a new LI.
+						return <li className="list-group-item" key={i}>{skill.Title}{skill.SubmissionComment}{skill.Score}</li> // Bootstrap classes to make things look nice
+					})}
+				</ul>
 			</main>
 		);
 	}
@@ -30,7 +35,7 @@ class App extends React.Component<IAppProps, IAppState> {
 export interface IAppProps {}
 
 export interface IAppState {
-	name: string;
+	skills: Array<any>; // Could put everything that comes back from the table here. Props on our table.
 }
 
 export default App;
